@@ -6,8 +6,8 @@ class PageController extends Controller
 {
     public function home()
     {
-        return '<h1>Benvenuto nel Gestionale del Gruppo di Ricerca</h1>
-                <p>Questa pagina è gestita da un Controller Laravel.</p>';
+        $projectCount = Project::count();
+        return view('home', ['projectCount' => $projectCount]);
     }
 
     public function about()

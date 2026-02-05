@@ -1,0 +1,42 @@
+Comandi GIT
+
+formato: "git xxxx", dove xxxx è il comando.
+extra: comando "gitk" apre l'alberatura locale.
+
+"fetch": aggiorna l'alberatura dei branch del server sulla tua macchina. Si collega al server e scarica tutte le informazioni.
+"pull": aggiorna il tuo branch selezionato al branch remoto. Serve la connessione e sarebbe meglio essere aggiornati prima (eseguire git fetch prima)
+"checkout": posizionati su un branch specificato. (git checkout nomebranch)
+"branch": crea un branch o eliminalo (se aggiungi il parametro -D). (git branch nomeBranch, git branch -D nomeBranch, uno crea e l'altro elimina)
+"status": printa il resoconto attuale del tuo repository.
+"add <+args>": aggiunti allo staging (lo stato in cui selezioni i file da commitare) i vari file specificati al posto di args.
+"gui": apre l'interfaccia grafica di git (semplifica tutto)
+"stash": aggiunge le tue modifiche non in staging nella pila di stash. Per riprendere le modifiche, "stash pop". (logica della pila)
+"rm <+args>": rimuove dallo staging i file in +args
+"commit": passa i file dallo staging al commit vero e proprio, e effettua il commit sul branch sul quale sei posizionato. (richiede un commento da inserire, si inserisce con '-m "Commento"')
+"push": passa i tuoi commit locali su un branch specifico verso il branch corrispondente in remoto (a volte si specifica l'origin, esempio "git push origin/nomeBranch", altrimenti basterebbe solo git push)
+"merge nomeBranch": unisce il tuo branch selezionato con il branch "nomeBranch" aggiunto come parametro del comando. Potrebbe causare merge conflicts
+
+
+I merge conflicts sono conflitti irresolvibili in maniera automatica tra una versione di file diversa su righe coincidenti. 
+Si risolvono modificando il file specifico e togliendo i caratteri speciali selezionando o la versione di un branch, o dell'altro (tipicamente remoto e locale).
+
+
+
+PER AGGIORNARE UNA MODIFICA PROPRIA:
+
+Dopo aver fatto qualunque cambiamento nel codice,
+Scrivi nel terminale di VSC   "git status"
+Ci saranno i nomi delle cartelle dove hai modificato evidenziate in rosso.
+Scrivi  "git add ." per includere tutte le modifiche fatte.
+Rifai "git status" per asscurarti che i file siano stati inclusi (appariranno evidenziati in verde)
+Invia questo comando per commentare su github le tue modifiche          "git commit -m "Descrizione breve di cosa hai cambiato"" 
+Per finire e salvare il file su GitHub scrivi                        "git push origin main"
+RICAPITOLANDO:
+git add .
+git commit -m "messaggio"
+git push origin main
+
+
+PER AGGIUNGERE UNA MODIFICA DEGLI ALTRI:
+
+git pull origin main
