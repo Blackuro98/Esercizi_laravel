@@ -14,19 +14,19 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
+    
+      //Display the registration view.
+     
     public function create(): View
     {
         return view('auth.register');
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
+    //
+     //Handle an incoming registration request.
+     
+      //@throws \Illuminate\Validation\ValidationException
+     
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
@@ -39,6 +39,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => 'researcher',
         ]);
 
         event(new Registered($user));
@@ -48,3 +49,16 @@ class RegisteredUserController extends Controller
         return redirect(route('dashboard', absolute: false));
     }
 }
+
+
+/*
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
+$user = User::create([
+  'name' => $request->name,
+  'email' => $request->email,
+  'password' => Hash::make($request->password),
+  'role' => 'researcher',
+]);
+*/
