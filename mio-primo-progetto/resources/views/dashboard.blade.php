@@ -1,17 +1,37 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout>
+@section('content')
+  <div class="bg-white p-6 rounded shadow">
+    <h2 class="h5 mb-4">Dashboard di {{ $user->name }}</h2>
+
+    <h4>Progetti associati</h4>
+    <ul class="mb-4">
+      @forelse($projects as $p)
+        <li>
+          <strong>{{ $p->title }}</strong> 
+          <span class="text-muted">(Ruolo: {{ $p->pivot->role ?? 'n/d' }})</span>
+        </li>
+      @empty
+        <li>Nessun progetto associato.</li>
+      @endforelse
+    </ul>
+
+    <h4>Task attivi</h4>
+    <ul class="mb-4">
+      @forelse($tasks as $t)
+        <li>{{ $t->title }} — <span class="badge bg-info text-dark">{{ $t->status }}</span></li>
+      @empty
+        <li>Nessun task attivo.</li>
+      @endforelse
+    </ul>
+
+    <h4>Pubblicazioni correlate</h4>
+    <ul>
+      @forelse($publications as $pub)
+        <li>{{ $pub->title }} {{ $pub->status ? '(' . $pub->status . ')' : '' }}</li>
+      @empty
+        <li>Nessuna pubblicazione trovata.</li>
+      @endforelse
+    </ul>
+  </div>
+@endsection

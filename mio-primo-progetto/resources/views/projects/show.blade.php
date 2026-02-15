@@ -18,6 +18,12 @@
           @endforeach
         </div>
       @endif
+      @can('delete-project', $project)
+  <form action="{{ route('projects.destroy',$project->id) }}" method="POST">
+    @csrf @method('DELETE')
+    <button class="btn btn-danger btn-sm">Elimina</button>
+  </form>
+      @endcan
     </div>
   </div>
 

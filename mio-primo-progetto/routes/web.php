@@ -3,14 +3,20 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{ProjectController,PublicationController,TaskController};
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+//Route::get('/dashboard', function () {
+ //   return view('dashboard');
+//})->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::get('/dashboard', [DashboardController::class, 'index'])
+  ->middleware(['auth'])
+  ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -30,4 +36,12 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])
-    ->middleware(['auth', 'role:admin,pi']);
+    ->middleware(['auth', 'role:admin,pi']) // Qui usiamo il middleware che hai creato!
+    ->name('projects.destroy');
+
+
+
+
+    
+
+
