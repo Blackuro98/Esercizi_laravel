@@ -1,5 +1,5 @@
-@extends('layouts.app')
 
+@extends('layouts.app')
 @section('content')
   <div class="bg-white p-6 rounded shadow">
     <h2 class="h5 mb-4">Dashboard di {{ $user->name }}</h2>

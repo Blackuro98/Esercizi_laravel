@@ -11,7 +11,8 @@
             <h3 class="h6 m-0">{{ $p->title }}</h3>
             <div class="text-muted small">Status: {{ $p->status ?? 'n/d' }}</div>
           </div>
-          <a class="btn btn-sm btn-outline-primary" href="{{ route('projects.show', $p->id) }}">Dettagli</a>
+          <!--<a class="btn btn-sm btn-outline-primary" href="{{ route('projects.show', $p->id) }}">Dettagli</a>-->
+          <a class="btn btn-sm btn-outline-primary" href="{{ url('/projects/' . $p->id) }}">Dettagli</a>
         </div>
 
         @if($p->tags->isNotEmpty())
