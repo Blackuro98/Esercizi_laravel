@@ -13,8 +13,8 @@ public function index(Request $r) {
    // if ($r->has('status')) $query->where('status',$r->status);
     //if ($r->has('funder')) $query->where('funder','like','%'.$r->funder.'%');
    // return ProjectResource::collection($query->get());
-   $progetti = \App\Models\Project::with('users')->get();
-    return ProjectResource::collection($progetti);
+   //$progetti = \App\Models\Project::with('users')->get();
+    //return ProjectResource::collection($progetti);
   }
 */
 public function index(\Illuminate\Http\Request $request)

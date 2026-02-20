@@ -12,7 +12,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-         $projects = Project::with(['milestones','tags','publications'])->orderBy('title')->get();
+         $projects = Project::with(['milestones','tags','publications'])->latest()->get();
         return view('projects.index', ['projects' => $projects]);
 
         return response()->json($projects, 200);
@@ -23,7 +23,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('projects.create');
     }
 
     /**
@@ -31,7 +31,20 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+        'title' => 'required|min:3|max:255',
+        'description' => 'nullable',
+        'file' => 'nullable|mimes:pdf|max:2048', // max 2MB
+    ]);
+
+    if ($request->hasFile('file')) {
+        $path = $request->file('file')->store('projects', 'public');
+        $validated['file_path'] = $path;
+    }
+
+    Project::create($validated);
+
+    return redirect('/projects')->with('success', 'Progetto creato con successo!');
     }
 
     /**
@@ -62,10 +75,16 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
+    public function destroy(Project $project)
+{
+    if ($project->file_path) {
+        Storage::disk('public')->delete($project->file_path);
     }
+
+    $project->delete();
+
+    return redirect('/projects')->with('success', 'Progetto eliminato con successo!');
+}
 
     public function html()
     {
